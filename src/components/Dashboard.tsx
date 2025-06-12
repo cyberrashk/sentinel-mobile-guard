@@ -2,86 +2,97 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Shield, Eye, Lock, Zap, Users } from 'lucide-react';
+import { Shield, Eye, Lock, Zap, Users, Scan } from 'lucide-react';
 
 const Dashboard = () => {
   const securityMetrics = [
-    { label: 'Malware', status: 'secure', icon: Shield, color: 'text-green-400' },
-    { label: 'Phishing', status: 'secure', icon: Eye, color: 'text-green-400' },
-    { label: 'App Risk', status: 'warning', icon: Zap, color: 'text-yellow-400' },
-    { label: 'Network', status: 'secure', icon: Users, color: 'text-green-400' },
-    { label: 'Vault', status: 'secure', icon: Lock, color: 'text-green-400' }
+    { label: 'Malware', status: 'secure', icon: Shield, color: 'text-green-400', count: '0' },
+    { label: 'Phishing', status: 'secure', icon: Eye, color: 'text-green-400', count: '0' },
+    { label: 'App Risk', status: 'warning', icon: Zap, color: 'text-yellow-400', count: '2' },
+    { label: 'Network', status: 'secure', icon: Users, color: 'text-green-400', count: '0' },
+    { label: 'Vault', status: 'secure', icon: Lock, color: 'text-green-400', count: '✓' }
   ];
 
   return (
-    <div className="space-y-6">
-      {/* Security Status Overview */}
-      <Card className="bg-card/50 backdrop-blur-sm border-border">
-        <CardHeader>
-          <CardTitle className="text-center text-2xl font-bold">Device Security Status</CardTitle>
-        </CardHeader>
-        <CardContent className="text-center">
-          <div className="relative inline-block mb-6">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-400/20 to-green-600/20 flex items-center justify-center glow-green">
-              <Shield className="h-16 w-16 text-green-400" />
-            </div>
-            <div className="absolute inset-0 rounded-full border-4 border-green-400/30 animate-pulse"></div>
+    <div className="space-y-8">
+      {/* Hero Section */}
+      <div className="text-center space-y-6">
+        <div className="relative inline-block">
+          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center glow-green float-animation">
+            <Shield className="h-16 w-16 text-green-400" />
           </div>
-          <h3 className="text-xl font-semibold text-green-400 mb-2">Protected</h3>
-          <p className="text-muted-foreground">Your device is secure</p>
-        </CardContent>
-      </Card>
+          <div className="absolute inset-0 rounded-full border-2 border-green-400/30 animate-pulse"></div>
+        </div>
+        <div>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+            Protected
+          </h2>
+          <p className="text-gray-400 mt-2">Your device is secure and protected</p>
+        </div>
+      </div>
 
       {/* Scan Button */}
       <div className="text-center">
         <Button
           size="lg"
-          className="w-48 h-16 text-lg font-semibold cyber-gradient hover:scale-105 transition-transform glow-blue scan-pulse"
+          className="w-56 h-16 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 glow-blue scan-pulse"
         >
-          <Shield className="h-6 w-6 mr-2" />
+          <Scan className="h-6 w-6 mr-3" />
           Scan Now
         </Button>
       </div>
 
-      {/* Security Indicators */}
-      <Card className="bg-card/50 backdrop-blur-sm border-border">
-        <CardHeader>
-          <CardTitle>Security Indicators</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {securityMetrics.map((metric, index) => {
-              const IconComponent = metric.icon;
-              return (
-                <div
-                  key={index}
-                  className="flex flex-col items-center p-4 bg-secondary/20 rounded-lg border border-border/50"
-                >
-                  <IconComponent className={`h-8 w-8 ${metric.color} mb-2`} />
-                  <span className="text-sm font-medium text-foreground">{metric.label}</span>
-                  <span className={`text-xs ${metric.color} capitalize`}>{metric.status}</span>
+      {/* Security Metrics Grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        {securityMetrics.map((metric, index) => {
+          const IconComponent = metric.icon;
+          return (
+            <Card
+              key={index}
+              className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group"
+            >
+              <CardContent className="flex flex-col items-center p-6 text-center">
+                <div className="p-3 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-700/50 mb-4 group-hover:scale-110 transition-transform">
+                  <IconComponent className={`h-6 w-6 ${metric.color}`} />
                 </div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+                <h3 className="font-semibold text-white mb-1">{metric.label}</h3>
+                <div className="flex items-center space-x-2">
+                  <span className={`text-xs ${metric.color} capitalize font-medium`}>
+                    {metric.status}
+                  </span>
+                  <span className={`text-xs ${metric.color} font-bold`}>
+                    {metric.count}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-colors cursor-pointer">
-          <CardContent className="p-6 text-center">
-            <Eye className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Threat Report</h3>
-            <p className="text-muted-foreground text-sm">View recent threats and security alerts</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group">
+          <CardContent className="p-8 text-center">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <Eye className="h-12 w-12 text-blue-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-3">Threat Report</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              View recent threats and security alerts detected on your device
+            </p>
           </CardContent>
         </Card>
         
-        <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-colors cursor-pointer">
-          <CardContent className="p-6 text-center">
-            <Lock className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Secure Vault</h3>
-            <p className="text-muted-foreground text-sm">Access your encrypted files and passwords</p>
+        <Card className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group">
+          <CardContent className="p-8 text-center">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <Lock className="h-12 w-12 text-purple-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-3">Secure Vault</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Access your encrypted files, photos, and passwords safely
+            </p>
           </CardContent>
         </Card>
       </div>

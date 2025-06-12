@@ -28,10 +28,10 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Mobile Tab Navigation */}
-        <div className="md:hidden mb-6">
-          <div className="flex overflow-x-auto space-x-2 pb-2">
+        <div className="md:hidden mb-8">
+          <div className="flex overflow-x-auto space-x-3 pb-4">
             {tabs.map((tab) => {
               const IconComponent = tab.icon;
               return (
@@ -39,10 +39,10 @@ const Index = () => {
                   key={tab.id}
                   variant={activeTab === tab.id ? "default" : "ghost"}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-shrink-0 ${
+                  className={`flex-shrink-0 h-12 px-6 ${
                     activeTab === tab.id 
-                      ? 'cyber-gradient glow-blue' 
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 glow-blue' 
+                      : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/10'
                   }`}
                 >
                   <IconComponent className="h-4 w-4 mr-2" />
@@ -53,10 +53,10 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Desktop Sidebar Navigation */}
           <div className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-24 space-y-2">
+            <div className="sticky top-32 space-y-3">
               {tabs.map((tab) => {
                 const IconComponent = tab.icon;
                 return (
@@ -64,10 +64,10 @@ const Index = () => {
                     key={tab.id}
                     variant={activeTab === tab.id ? "default" : "ghost"}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`w-full justify-start ${
+                    className={`w-full justify-start h-12 px-4 ${
                       activeTab === tab.id 
-                        ? 'cyber-gradient glow-blue' 
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/20'
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 glow-blue' 
+                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/10'
                     }`}
                   >
                     <IconComponent className="h-4 w-4 mr-3" />
