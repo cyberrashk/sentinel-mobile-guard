@@ -1,10 +1,20 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Shield, User, Menu, X } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Badge } from '@/components/ui/badge';
+import { Shield, User, Menu, X, Bell, LogOut } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { useNotifications } from '@/hooks/useNotifications';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const { unreadCount } = useNotifications();
+
+  const handleSignOut = () => {
+    signOut();
+  };
 
   return (
     <nav className="glass-card backdrop-blur-xl border-b border-white/10 sticky top-0 z-50">
@@ -25,18 +35,27 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/5">
-              Dashboard
+            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/5 relative">
+              <Bell className="h-4 w-4 mr-2" />
+              Notifications
+              {unreadCount > 0 && (
+                <Badge variant="destructive" className="ml-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </Badge>
+              )}
             </Button>
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/5">
-              Threats
-            </Button>
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/5">
-              Vault
-            </Button>
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0">
-              <User className="h-4 w-4 mr-2" />
-              Login
+            <div className="flex items-center space-x-3 text-gray-300">
+              <User className="h-4 w-4" />
+              <span className="text-sm">{user?.email}</span>
+            </div>
+            <Button 
+              onClick={handleSignOut}
+              variant="ghost" 
+              size="sm"
+              className="text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
             </Button>
           </div>
 
@@ -57,17 +76,25 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-2 border-t border-white/10">
             <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-white hover:bg-white/5">
-              Dashboard
+              <Bell className="h-4 w-4 mr-2" />
+              Notifications
+              {unreadCount > 0 && (
+                <Badge variant="destructive" className="ml-auto">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </Badge>
+              )}
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-white hover:bg-white/5">
-              Threats
-            </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-white hover:bg-white/5">
-              Vault
-            </Button>
-            <Button className="w-full justify-start bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+            <div className="flex items-center justify-start px-3 py-2 text-gray-300 text-sm">
               <User className="h-4 w-4 mr-2" />
-              Login
+              {user?.email}
+            </div>
+            <Button 
+              onClick={handleSignOut}
+              variant="ghost" 
+              className="w-full justify-start text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
             </Button>
           </div>
         )}

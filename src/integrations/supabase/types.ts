@@ -9,7 +9,219 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      notifications: {
+        Row: {
+          action_url: string | null
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          metadata: Json | null
+          priority: number | null
+          title: string
+          type: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action_url?: string | null
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          metadata?: Json | null
+          priority?: number | null
+          title: string
+          type?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action_url?: string | null
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          metadata?: Json | null
+          priority?: number | null
+          title?: string
+          type?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          notification_preferences: Json | null
+          security_clearance: string | null
+          updated_at: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          notification_preferences?: Json | null
+          security_clearance?: string | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          notification_preferences?: Json | null
+          security_clearance?: string | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
+      scans: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          parameters: Json | null
+          results: Json | null
+          scan_type: Database["public"]["Enums"]["scan_type"]
+          started_at: string | null
+          status: Database["public"]["Enums"]["scan_status"] | null
+          target: string
+          threats_found: number | null
+          user_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          parameters?: Json | null
+          results?: Json | null
+          scan_type: Database["public"]["Enums"]["scan_type"]
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["scan_status"] | null
+          target: string
+          threats_found?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          parameters?: Json | null
+          results?: Json | null
+          scan_type?: Database["public"]["Enums"]["scan_type"]
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["scan_status"] | null
+          target?: string
+          threats_found?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      threats: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          detected_at: string | null
+          id: string
+          indicators: Json | null
+          mitigation_steps: string[] | null
+          resolved_at: string | null
+          severity: Database["public"]["Enums"]["threat_severity"]
+          source_ip: unknown | null
+          status: Database["public"]["Enums"]["threat_status"] | null
+          target_ip: unknown | null
+          threat_type: string | null
+          title: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          detected_at?: string | null
+          id?: string
+          indicators?: Json | null
+          mitigation_steps?: string[] | null
+          resolved_at?: string | null
+          severity: Database["public"]["Enums"]["threat_severity"]
+          source_ip?: unknown | null
+          status?: Database["public"]["Enums"]["threat_status"] | null
+          target_ip?: unknown | null
+          threat_type?: string | null
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          detected_at?: string | null
+          id?: string
+          indicators?: Json | null
+          mitigation_steps?: string[] | null
+          resolved_at?: string | null
+          severity?: Database["public"]["Enums"]["threat_severity"]
+          source_ip?: unknown | null
+          status?: Database["public"]["Enums"]["threat_status"] | null
+          target_ip?: unknown | null
+          threat_type?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      vault_items: {
+        Row: {
+          description: string | null
+          encryption_key_id: string | null
+          file_path: string | null
+          file_size: number | null
+          id: string
+          is_encrypted: boolean | null
+          last_accessed: string | null
+          mime_type: string | null
+          name: string
+          tags: string[] | null
+          uploaded_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          description?: string | null
+          encryption_key_id?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          id?: string
+          is_encrypted?: boolean | null
+          last_accessed?: string | null
+          mime_type?: string | null
+          name: string
+          tags?: string[] | null
+          uploaded_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          description?: string | null
+          encryption_key_id?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          id?: string
+          is_encrypted?: boolean | null
+          last_accessed?: string | null
+          mime_type?: string | null
+          name?: string
+          tags?: string[] | null
+          uploaded_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +230,10 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      scan_status: "pending" | "running" | "completed" | "failed"
+      scan_type: "network" | "malware" | "vulnerability" | "phishing"
+      threat_severity: "low" | "medium" | "high" | "critical"
+      threat_status: "active" | "resolved" | "investigating" | "false_positive"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +348,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      scan_status: ["pending", "running", "completed", "failed"],
+      scan_type: ["network", "malware", "vulnerability", "phishing"],
+      threat_severity: ["low", "medium", "high", "critical"],
+      threat_status: ["active", "resolved", "investigating", "false_positive"],
+    },
   },
 } as const
