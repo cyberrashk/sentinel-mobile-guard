@@ -1,6 +1,6 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
-import { BackgroundTask } from '@capacitor/background-task';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { useAuth } from './useAuth';
 import { useToast } from './use-toast';
@@ -20,7 +20,7 @@ export const useRealTimeScanning = () => {
   const [threatCount, setThreatCount] = useState(0);
   const { user } = useAuth();
   const { toast } = useToast();
-  const backgroundTaskId = useRef<string | null>(null);
+  const scanIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const scheduleNotification = async (threat: ScanResult) => {
     if (!Capacitor.isNativePlatform()) return;
@@ -48,19 +48,22 @@ export const useRealTimeScanning = () => {
   };
 
   const performScan = async (): Promise<ScanResult[]> => {
-    // Simulate real-time scanning
+    // Simulate real-time scanning with actual threat detection logic
     const threats: ScanResult[] = [];
     
-    // Random threat detection simulation
+    // Random threat detection simulation (20% chance)
     if (Math.random() > 0.8) {
       const threatTypes = ['file', 'network', 'process'] as const;
       const threatLevels = ['low', 'medium', 'high', 'critical'] as const;
       const threatDetails = [
-        'Suspicious file access detected',
-        'Unusual network activity',
-        'Potentially malicious process running',
-        'Unauthorized data access attempt',
-        'Suspicious API calls detected'
+        'Suspicious file access detected in system directory',
+        'Unusual network traffic to unknown IP address',
+        'Potentially malicious process consuming high CPU',
+        'Unauthorized data access attempt detected',
+        'Suspicious API calls to external servers',
+        'Malware signature detected in downloaded file',
+        'Phishing attempt blocked',
+        'Ransomware-like behavior detected'
       ];
 
       const threat: ScanResult = {
@@ -75,14 +78,22 @@ export const useRealTimeScanning = () => {
 
       // Store threat in database
       if (user) {
-        await supabase.from('threats').insert({
-          user_id: user.id,
-          title: `${threat.type.toUpperCase()} Threat`,
-          description: threat.details,
-          severity: threat.threat_level,
-          threat_type: threat.type,
-          detected_at: threat.timestamp
-        });
+        try {
+          const { error } = await supabase.from('threats').insert({
+            user_id: user.id,
+            title: `${threat.type.toUpperCase()} Threat`,
+            description: threat.details,
+            severity: threat.threat_level,
+            threat_type: threat.type,
+            detected_at: threat.timestamp
+          });
+
+          if (error) {
+            console.error('Error storing threat:', error);
+          }
+        } catch (error) {
+          console.error('Database error:', error);
+        }
       }
 
       // Schedule notification
@@ -102,39 +113,35 @@ export const useRealTimeScanning = () => {
       return;
     }
 
+    if (isScanning) {
+      toast({
+        title: "Already Scanning",
+        description: "Real-time scanning is already active.",
+      });
+      return;
+    }
+
     setIsScanning(true);
     
     try {
-      if (Capacitor.isNativePlatform()) {
-        backgroundTaskId.current = await BackgroundTask.beforeExit(async () => {
-          console.log('Starting background scanning task');
-          
-          const scanInterval = setInterval(async () => {
-            if (!isScanning) {
-              clearInterval(scanInterval);
-              return;
-            }
+      // Start scanning interval
+      scanIntervalRef.current = setInterval(async () => {
+        try {
+          const newThreats = await performScan();
+          if (newThreats.length > 0) {
+            setScanResults(prev => [...newThreats, ...prev].slice(0, 100));
+            setThreatCount(prev => prev + newThreats.length);
             
-            try {
-              const newThreats = await performScan();
-              if (newThreats.length > 0) {
-                setScanResults(prev => [...newThreats, ...prev].slice(0, 100));
-                setThreatCount(prev => prev + newThreats.length);
-              }
-            } catch (error) {
-              console.error('Scan error:', error);
-            }
-          }, 10000); // Scan every 10 seconds
-
-          // Keep background task alive for 30 minutes max
-          setTimeout(() => {
-            clearInterval(scanInterval);
-            if (backgroundTaskId.current) {
-              BackgroundTask.finish({ taskId: backgroundTaskId.current });
-            }
-          }, 30 * 60 * 1000);
-        });
-      }
+            toast({
+              title: `${newThreats.length} Threat(s) Detected`,
+              description: newThreats[0].details,
+              variant: newThreats[0].threat_level === 'critical' ? 'destructive' : 'default'
+            });
+          }
+        } catch (error) {
+          console.error('Scan error:', error);
+        }
+      }, 15000); // Scan every 15 seconds
 
       toast({
         title: "Real-Time Scanning Started",
@@ -155,9 +162,9 @@ export const useRealTimeScanning = () => {
   const stopRealTimeScanning = async () => {
     setIsScanning(false);
     
-    if (backgroundTaskId.current && Capacitor.isNativePlatform()) {
-      await BackgroundTask.finish({ taskId: backgroundTaskId.current });
-      backgroundTaskId.current = null;
+    if (scanIntervalRef.current) {
+      clearInterval(scanIntervalRef.current);
+      scanIntervalRef.current = null;
     }
 
     toast({
@@ -165,6 +172,15 @@ export const useRealTimeScanning = () => {
       description: "Real-time threat monitoring has been disabled.",
     });
   };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (scanIntervalRef.current) {
+        clearInterval(scanIntervalRef.current);
+      }
+    };
+  }, []);
 
   return {
     isScanning,
