@@ -5,8 +5,10 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Shield, Mail, Lock, User, AlertCircle, Smartphone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import OTPVerification from '@/components/OTPVerification';
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -15,6 +17,7 @@ const Auth = () => {
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+  const [authMethod, setAuthMethod] = useState<'password' | 'otp'>('password');
   const { signIn, signUp, user, loading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -73,98 +76,117 @@ const Auth = () => {
               AI Sentinel
             </CardTitle>
             <CardDescription className="text-gray-400">
-              {isSignUp ? 'Create your secure account' : 'Sign in to your account'}
+              Mobile Cyber Protection Platform
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {isSignUp && (
-                <>
+            <Tabs value={authMethod} onValueChange={(value) => setAuthMethod(value as 'password' | 'otp')}>
+              <TabsList className="grid w-full grid-cols-2 bg-secondary/20 mb-6">
+                <TabsTrigger value="password" className="flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  Password
+                </TabsTrigger>
+                <TabsTrigger value="otp" className="flex items-center gap-2">
+                  <Smartphone className="h-4 w-4" />
+                  OTP
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="password">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {isSignUp && (
+                    <>
+                      <div className="space-y-2">
+                        <div className="relative">
+                          <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                          <Input
+                            type="text"
+                            placeholder="Full Name"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-400"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="relative">
+                          <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                          <Input
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-400"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  
                   <div className="space-y-2">
                     <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        type="text"
-                        placeholder="Full Name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-400"
                         required
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
                     <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                      <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-400"
                         required
                       />
                     </div>
                   </div>
-                </>
-              )}
-              
-              <div className="space-y-2">
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-400"
-                    required
-                  />
+
+                  {error && (
+                    <div className="flex items-center space-x-2 text-red-400 text-sm">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{error}</span>
+                    </div>
+                  )}
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    disabled={loading}
+                  >
+                    {loading ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In')}
+                  </Button>
+                </form>
+
+                <div className="mt-6 text-center">
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      setIsSignUp(!isSignUp);
+                      setError('');
+                    }}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+                  </Button>
                 </div>
-              </div>
+              </TabsContent>
 
-              <div className="space-y-2">
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-400"
-                    required
-                  />
-                </div>
-              </div>
-
-              {error && (
-                <div className="flex items-center space-x-2 text-red-400 text-sm">
-                  <AlertCircle className="h-4 w-4" />
-                  <span>{error}</span>
-                </div>
-              )}
-
-              <Button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                disabled={loading}
-              >
-                {loading ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In')}
-              </Button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  setIsSignUp(!isSignUp);
-                  setError('');
-                }}
-                className="text-gray-400 hover:text-white"
-              >
-                {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
-              </Button>
-            </div>
+              <TabsContent value="otp">
+                <OTPVerification />
+              </TabsContent>
+            </Tabs>
           </CardContent>
         </Card>
       </div>

@@ -1,89 +1,88 @@
 
-import React, { useState } from 'react';
-import Navigation from '@/components/Navigation';
-import Dashboard from '@/components/Dashboard';
-import ThreatReport from '@/components/ThreatReport';
-import Vault from '@/components/Vault';
-import AIAssistant from '@/components/AIAssistant';
-import Scanner from '@/components/Scanner';
-import Geofence from '@/components/Geofence';
-import { Button } from '@/components/ui/button';
-import { Shield, Eye, Lock, Zap, Users, Bell } from 'lucide-react';
+import Navigation from "@/components/Navigation";
+import Dashboard from "@/components/Dashboard";
+import Scanner from "@/components/Scanner";
+import ThreatReport from "@/components/ThreatReport";
+import Vault from "@/components/Vault";
+import AIAssistant from "@/components/AIAssistant";
+import Geofence from "@/components/Geofence";
+import MobilePermissions from "@/components/MobilePermissions";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Shield, Search, AlertTriangle, Lock, Bot, MapPin, Smartphone } from "lucide-react";
+import { Capacitor } from '@capacitor/core';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-
-  const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: Shield, component: Dashboard },
-    { id: 'threats', label: 'Threats', icon: Eye, component: ThreatReport },
-    { id: 'vault', label: 'Vault', icon: Lock, component: Vault },
-    { id: 'assistant', label: 'AI Assistant', icon: Zap, component: AIAssistant },
-    { id: 'scanner', label: 'Scanner', icon: Users, component: Scanner },
-    { id: 'geofence', label: 'SOS', icon: Bell, component: Geofence }
-  ];
-
-  const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component || Dashboard;
+  const isMobile = Capacitor.isNativePlatform();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <Navigation />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Mobile Tab Navigation */}
-        <div className="md:hidden mb-8">
-          <div className="flex overflow-x-auto space-x-3 pb-4">
-            {tabs.map((tab) => {
-              const IconComponent = tab.icon;
-              return (
-                <Button
-                  key={tab.id}
-                  variant={activeTab === tab.id ? "default" : "ghost"}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex-shrink-0 h-12 px-6 ${
-                    activeTab === tab.id 
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 glow-blue' 
-                      : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/10'
-                  }`}
-                >
-                  <IconComponent className="h-4 w-4 mr-2" />
-                  {tab.label}
-                </Button>
-              );
-            })}
-          </div>
-        </div>
+      <main className="container mx-auto px-4 py-8">
+        <Tabs defaultValue={isMobile ? "permissions" : "dashboard"} className="space-y-6">
+          <TabsList className="grid grid-cols-4 lg:grid-cols-7 bg-white/5 backdrop-blur-sm border border-white/10">
+            {isMobile && (
+              <TabsTrigger value="permissions" className="flex items-center gap-2">
+                <Smartphone className="h-4 w-4" />
+                <span className="hidden sm:inline">Permissions</span>
+              </TabsTrigger>
+            )}
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <Shield className="h-4 w-4" />
+              <span className="hidden sm:inline">Dashboard</span>
+            </TabsTrigger>
+            <TabsTrigger value="scanner" className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              <span className="hidden sm:inline">Scanner</span>
+            </TabsTrigger>
+            <TabsTrigger value="threats" className="flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4" />
+              <span className="hidden sm:inline">Threats</span>
+            </TabsTrigger>
+            <TabsTrigger value="vault" className="flex items-center gap-2">
+              <Lock className="h-4 w-4" />
+              <span className="hidden sm:inline">Vault</span>
+            </TabsTrigger>
+            <TabsTrigger value="ai" className="flex items-center gap-2">
+              <Bot className="h-4 w-4" />
+              <span className="hidden sm:inline">AI Assistant</span>
+            </TabsTrigger>
+            <TabsTrigger value="geofence" className="flex items-center gap-2">
+              <MapPin className="h-4 w-4" />
+              <span className="hidden sm:inline">Geofence</span>
+            </TabsTrigger>
+          </TabsList>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Desktop Sidebar Navigation */}
-          <div className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-32 space-y-3">
-              {tabs.map((tab) => {
-                const IconComponent = tab.icon;
-                return (
-                  <Button
-                    key={tab.id}
-                    variant={activeTab === tab.id ? "default" : "ghost"}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`w-full justify-start h-12 px-4 ${
-                      activeTab === tab.id 
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 glow-blue' 
-                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/10'
-                    }`}
-                  >
-                    <IconComponent className="h-4 w-4 mr-3" />
-                    {tab.label}
-                  </Button>
-                );
-              })}
-            </div>
-          </div>
+          {isMobile && (
+            <TabsContent value="permissions">
+              <MobilePermissions />
+            </TabsContent>
+          )}
 
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            <ActiveComponent />
-          </div>
-        </div>
-      </div>
+          <TabsContent value="dashboard">
+            <Dashboard />
+          </TabsContent>
+
+          <TabsContent value="scanner">
+            <Scanner />
+          </TabsContent>
+
+          <TabsContent value="threats">
+            <ThreatReport />
+          </TabsContent>
+
+          <TabsContent value="vault">
+            <Vault />
+          </TabsContent>
+
+          <TabsContent value="ai">
+            <AIAssistant />
+          </TabsContent>
+
+          <TabsContent value="geofence">
+            <Geofence />
+          </TabsContent>
+        </Tabs>
+      </main>
     </div>
   );
 };
