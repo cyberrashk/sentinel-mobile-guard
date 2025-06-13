@@ -37,6 +37,8 @@ class AIScanningService {
     const startTime = Date.now();
     
     try {
+      console.log(`Starting AI scan for file: ${file.name}`);
+      
       // Call AI scanning edge function
       const { data, error } = await supabase.functions.invoke('ai-virus-scanner', {
         body: {
@@ -50,7 +52,8 @@ class AIScanningService {
 
       if (error) {
         console.error('AI scanning error:', error);
-        throw new Error('Failed to scan file with AI engine');
+        // Fallback to local heuristic scanning
+        return this.performHeuristicScan(file, startTime);
       }
 
       const scanTime = Date.now() - startTime;
@@ -59,12 +62,13 @@ class AIScanningService {
         id: `scan_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         fileName: file.name,
         filePath: file.path,
-        status: data.status,
+        status: data.status || 'clean',
         threatDetails: data.threatDetails,
         scanTime,
         timestamp: new Date().toISOString()
       };
 
+      console.log(`Scan completed for ${file.name}: ${result.status}`);
       this.scanResults.push(result);
       return result;
     } catch (error) {
@@ -76,6 +80,8 @@ class AIScanningService {
   }
 
   private async performHeuristicScan(file: ScanFile, startTime: number): Promise<ScanResult> {
+    console.log(`Performing heuristic scan for: ${file.name}`);
+    
     // Advanced heuristic analysis
     const suspiciousPatterns = [
       /eval\s*\(/gi,
@@ -162,25 +168,35 @@ class AIScanningService {
 
   async performSystemScan(): Promise<ScanResult[]> {
     this.isScanning = true;
+    console.log('Starting system scan...');
+    
     const systemFiles: ScanFile[] = [
       { name: 'system32.dll', path: '/system/lib/', size: 1024000, type: 'application/octet-stream' },
       { name: 'config.sys', path: '/system/', size: 2048, type: 'text/plain' },
       { name: 'autorun.inf', path: '/storage/', size: 512, type: 'text/plain' },
       { name: 'downloads.cache', path: '/downloads/', size: 5120, type: 'application/cache' },
-      { name: 'temp.files', path: '/tmp/', size: 8192, type: 'application/temp' }
+      { name: 'temp.files', path: '/tmp/', size: 8192, type: 'application/temp' },
+      // Add some potentially infected files for demonstration
+      { name: 'suspicious.exe', path: '/temp/', size: 2048, type: 'application/exe', content: 'eval(document.write)' },
+      { name: 'test.txt', path: '/downloads/', size: 100, type: 'text/plain', content: 'X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' }
     ];
 
     const results: ScanResult[] = [];
     
     for (const file of systemFiles) {
-      const result = await this.scanFile(file);
-      results.push(result);
-      
-      // Simulate scanning delay
-      await new Promise(resolve => setTimeout(resolve, 500));
+      try {
+        const result = await this.scanFile(file);
+        results.push(result);
+        
+        // Simulate scanning delay for better UX
+        await new Promise(resolve => setTimeout(resolve, 800));
+      } catch (error) {
+        console.error(`Error scanning file ${file.name}:`, error);
+      }
     }
 
     this.isScanning = false;
+    console.log(`System scan completed. Found ${results.filter(r => r.status !== 'clean').length} threats.`);
     return results;
   }
 
@@ -190,6 +206,7 @@ class AIScanningService {
 
   clearResults(): void {
     this.scanResults = [];
+    console.log('Scan results cleared');
   }
 }
 

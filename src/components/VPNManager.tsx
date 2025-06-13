@@ -29,6 +29,16 @@ const VPNManager = () => {
     return 'text-red-400';
   };
 
+  const handleConnectionToggle = () => {
+    if (isConnected) {
+      disconnectVPN();
+    } else {
+      // Connect to the first available server if none selected
+      const serverToConnect = selectedServer || vpnServers[0];
+      connectVPN(serverToConnect);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Hero Section with Security Image */}
@@ -83,7 +93,7 @@ const VPNManager = () => {
             </div>
 
             <Button
-              onClick={isConnected ? disconnectVPN : () => {}}
+              onClick={handleConnectionToggle}
               disabled={isConnecting}
               size="lg"
               className={`w-48 h-12 font-semibold ${
@@ -129,8 +139,8 @@ const VPNManager = () => {
                 selectedServer?.id === server.id
                   ? 'border-blue-500/50 bg-blue-500/10'
                   : 'border-white/10 bg-white/5 hover:bg-white/10'
-              }`}
-              onClick={() => !isConnecting && connectVPN(server)}
+              } ${isConnecting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              onClick={() => !isConnecting && !isConnected && connectVPN(server)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">

@@ -22,10 +22,28 @@ export const useRealTimeScanning = () => {
   const { toast } = useToast();
   const scanIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const requestNotificationPermissions = async () => {
+    if (!Capacitor.isNativePlatform()) return true;
+
+    try {
+      const permission = await LocalNotifications.requestPermissions();
+      return permission.display === 'granted';
+    } catch (error) {
+      console.error('Failed to request notification permissions:', error);
+      return false;
+    }
+  };
+
   const scheduleNotification = async (threat: ScanResult) => {
     if (!Capacitor.isNativePlatform()) return;
 
     try {
+      const hasPermission = await requestNotificationPermissions();
+      if (!hasPermission) {
+        console.log('Notification permissions not granted');
+        return;
+      }
+
       await LocalNotifications.schedule({
         notifications: [
           {
@@ -33,7 +51,7 @@ export const useRealTimeScanning = () => {
             body: threat.details,
             id: parseInt(threat.id.slice(-8), 16),
             schedule: { at: new Date(Date.now() + 1000) },
-            sound: threat.threat_level === 'critical' ? 'alarm.wav' : 'beep.wav',
+            sound: threat.threat_level === 'critical' ? 'beep.wav' : 'beep.wav',
             actionTypeId: 'THREAT_ALERT',
             extra: {
               threatId: threat.id,
@@ -42,17 +60,18 @@ export const useRealTimeScanning = () => {
           }
         ]
       });
+      console.log('Notification scheduled for threat:', threat.id);
     } catch (error) {
       console.error('Failed to schedule notification:', error);
     }
   };
 
   const performScan = async (): Promise<ScanResult[]> => {
-    // Simulate real-time scanning with actual threat detection logic
+    console.log('Performing real-time scan...');
     const threats: ScanResult[] = [];
     
-    // Random threat detection simulation (20% chance)
-    if (Math.random() > 0.8) {
+    // Increased threat detection probability for demonstration (30% chance)
+    if (Math.random() > 0.7) {
       const threatTypes = ['file', 'network', 'process'] as const;
       const threatLevels = ['low', 'medium', 'high', 'critical'] as const;
       const threatDetails = [
@@ -62,8 +81,10 @@ export const useRealTimeScanning = () => {
         'Unauthorized data access attempt detected',
         'Suspicious API calls to external servers',
         'Malware signature detected in downloaded file',
-        'Phishing attempt blocked',
-        'Ransomware-like behavior detected'
+        'Phishing attempt blocked from malicious domain',
+        'Ransomware-like behavior detected in file encryption',
+        'Trojan horse activity detected in system processes',
+        'Spyware attempting to access personal data'
       ];
 
       const threat: ScanResult = {
@@ -75,6 +96,7 @@ export const useRealTimeScanning = () => {
       };
 
       threats.push(threat);
+      console.log('Threat detected:', threat);
 
       // Store threat in database
       if (user) {
@@ -90,6 +112,8 @@ export const useRealTimeScanning = () => {
 
           if (error) {
             console.error('Error storing threat:', error);
+          } else {
+            console.log('Threat stored in database');
           }
         } catch (error) {
           console.error('Database error:', error);
@@ -121,10 +145,14 @@ export const useRealTimeScanning = () => {
       return;
     }
 
+    console.log('Starting real-time scanning...');
     setIsScanning(true);
     
     try {
-      // Start scanning interval
+      // Request notification permissions
+      await requestNotificationPermissions();
+
+      // Start scanning interval (every 10 seconds for more frequent checks)
       scanIntervalRef.current = setInterval(async () => {
         try {
           const newThreats = await performScan();
@@ -141,7 +169,7 @@ export const useRealTimeScanning = () => {
         } catch (error) {
           console.error('Scan error:', error);
         }
-      }, 15000); // Scan every 15 seconds
+      }, 10000); // Scan every 10 seconds
 
       toast({
         title: "Real-Time Scanning Started",
@@ -160,6 +188,7 @@ export const useRealTimeScanning = () => {
   };
 
   const stopRealTimeScanning = async () => {
+    console.log('Stopping real-time scanning...');
     setIsScanning(false);
     
     if (scanIntervalRef.current) {

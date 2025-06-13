@@ -23,6 +23,7 @@ export const useAIScanning = () => {
       return;
     }
 
+    console.log('Starting AI system scan...');
     setIsScanning(true);
     setScanProgress(0);
     setScanResults([]);
@@ -41,9 +42,9 @@ export const useAIScanning = () => {
             clearInterval(progressInterval);
             return 95;
           }
-          return prev + Math.random() * 15;
+          return prev + Math.random() * 12;
         });
-      }, 1000);
+      }, 1200);
 
       const results = await aiScanningService.performSystemScan();
       
@@ -56,22 +57,27 @@ export const useAIScanning = () => {
 
       // Store scan results in database
       if (threats.length > 0) {
+        console.log(`Storing ${threats.length} threats in database...`);
         for (const threat of threats) {
-          await supabase.from('threats').insert({
-            user_id: user.id,
-            title: `${threat.threatDetails?.type?.toUpperCase() || 'THREAT'} Detected`,
-            description: `${threat.fileName}: ${threat.threatDetails?.description || 'Unknown threat'}`,
-            severity: threat.threatDetails?.severity || 'medium',
-            threat_type: threat.threatDetails?.type || 'unknown',
-            detected_at: threat.timestamp
-          });
+          try {
+            await supabase.from('threats').insert({
+              user_id: user.id,
+              title: `${threat.threatDetails?.type?.toUpperCase() || 'THREAT'} Detected`,
+              description: `${threat.fileName}: ${threat.threatDetails?.description || 'Unknown threat'}`,
+              severity: threat.threatDetails?.severity || 'medium',
+              threat_type: threat.threatDetails?.type || 'unknown',
+              detected_at: threat.timestamp
+            });
+          } catch (dbError) {
+            console.error('Error storing threat in database:', dbError);
+          }
         }
       }
 
       toast({
         title: threats.length > 0 ? "Threats Detected!" : "Scan Complete",
         description: threats.length > 0 
-          ? `${threats.length} threat(s) found and quarantined.`
+          ? `${threats.length} threat(s) found and analyzed.`
           : "Your device is secure. No threats detected.",
         variant: threats.length > 0 ? "destructive" : "default"
       });
@@ -89,6 +95,8 @@ export const useAIScanning = () => {
   }, [user, toast]);
 
   const quarantineThreat = useCallback(async (scanResult: ScanResult) => {
+    console.log(`Quarantining threat: ${scanResult.fileName}`);
+    
     try {
       // Call quarantine API
       const { data, error } = await supabase.functions.invoke('quarantine-threat', {
@@ -99,7 +107,12 @@ export const useAIScanning = () => {
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Quarantine API error:', error);
+        throw error;
+      }
+
+      console.log('Quarantine successful:', data);
 
       toast({
         title: "Threat Quarantined",
@@ -119,13 +132,14 @@ export const useAIScanning = () => {
       console.error('Quarantine failed:', error);
       toast({
         title: "Quarantine Failed",
-        description: "Unable to quarantine threat. Manual intervention required.",
+        description: "Unable to quarantine threat. Manual intervention may be required.",
         variant: "destructive"
       });
     }
   }, [toast]);
 
   const clearScanResults = useCallback(() => {
+    console.log('Clearing scan results...');
     setScanResults([]);
     setScanProgress(0);
     setThreatsDetected(0);
