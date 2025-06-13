@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Shield, Eye, Lock, Zap, Users, Scan } from 'lucide-react';
+import { Shield, Eye, Lock, Zap, Users, Scan, Globe, Smartphone } from 'lucide-react';
 
 const Dashboard = () => {
   const securityMetrics = [
@@ -15,30 +15,48 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8">
-      {/* Hero Section */}
-      <div className="text-center space-y-6">
-        <div className="relative inline-block">
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center glow-green float-animation">
-            <Shield className="h-16 w-16 text-green-400" />
+      {/* Hero Section with Tech Background */}
+      <Card className="glass-card overflow-hidden">
+        <div 
+          className="h-56 bg-cover bg-center relative"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=400&fit=crop)',
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+          <div className="absolute bottom-6 left-6 right-6">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-600/30 flex items-center justify-center glow-green">
+                <Shield className="h-8 w-8 text-green-400" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white">AI Sentinel</h2>
+                <p className="text-green-400 font-medium">System Protected</p>
+              </div>
+            </div>
+            <p className="text-gray-200 text-sm">
+              Advanced AI-powered mobile security with real-time threat detection and VPN protection
+            </p>
           </div>
-          <div className="absolute inset-0 rounded-full border-2 border-green-400/30 animate-pulse"></div>
         </div>
-        <div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-            Protected
-          </h2>
-          <p className="text-gray-400 mt-2">Your device is secure and protected</p>
-        </div>
-      </div>
+      </Card>
 
-      {/* Scan Button */}
-      <div className="text-center">
+      {/* Quick Actions Grid */}
+      <div className="grid grid-cols-2 gap-4">
         <Button
           size="lg"
-          className="w-56 h-16 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 glow-blue scan-pulse"
+          className="h-20 flex-col gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 glow-blue"
         >
-          <Scan className="h-6 w-6 mr-3" />
-          Scan Now
+          <Scan className="h-6 w-6" />
+          <span className="text-sm font-medium">Quick Scan</span>
+        </Button>
+        
+        <Button
+          size="lg"
+          className="h-20 flex-col gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 glow-green"
+        >
+          <Globe className="h-6 w-6" />
+          <span className="text-sm font-medium">Connect VPN</span>
         </Button>
       </div>
 
@@ -70,32 +88,78 @@ const Dashboard = () => {
         })}
       </div>
 
-      {/* Quick Actions */}
+      {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group">
-          <CardContent className="p-8 text-center">
-            <div className="p-4 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform">
-              <Eye className="h-12 w-12 text-blue-400" />
+        <Card className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group overflow-hidden">
+          <div 
+            className="h-32 bg-cover bg-center relative"
+            style={{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=300&fit=crop)',
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+            <div className="absolute bottom-3 left-4">
+              <Eye className="h-8 w-8 text-blue-400 mb-2" />
             </div>
-            <h3 className="text-xl font-semibold text-white mb-3">Threat Report</h3>
+          </div>
+          <CardContent className="p-6">
+            <h3 className="text-xl font-semibold text-white mb-3">Threat Analysis</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              View recent threats and security alerts detected on your device
+              Advanced AI monitoring with real-time threat detection and automated response systems
             </p>
           </CardContent>
         </Card>
         
-        <Card className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group">
-          <CardContent className="p-8 text-center">
-            <div className="p-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform">
-              <Lock className="h-12 w-12 text-purple-400" />
+        <Card className="glass-card hover:bg-white/5 transition-all duration-300 cursor-pointer group overflow-hidden">
+          <div 
+            className="h-32 bg-cover bg-center relative"
+            style={{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=300&fit=crop)',
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+            <div className="absolute bottom-3 left-4">
+              <Lock className="h-8 w-8 text-purple-400 mb-2" />
             </div>
+          </div>
+          <CardContent className="p-6">
             <h3 className="text-xl font-semibold text-white mb-3">Secure Vault</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Access your encrypted files, photos, and passwords safely
+              Military-grade encryption for your sensitive files, photos, and passwords with biometric access
             </p>
           </CardContent>
         </Card>
       </div>
+
+      {/* Mobile Security Stats */}
+      <Card className="glass-card">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Smartphone className="h-5 w-5 text-blue-400" />
+            Mobile Security Status
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 bg-white/5 rounded-lg">
+              <p className="text-2xl font-bold text-green-400">156</p>
+              <p className="text-sm text-gray-400">Apps Scanned</p>
+            </div>
+            <div className="text-center p-4 bg-white/5 rounded-lg">
+              <p className="text-2xl font-bold text-blue-400">2.8K</p>
+              <p className="text-sm text-gray-400">Files Protected</p>
+            </div>
+            <div className="text-center p-4 bg-white/5 rounded-lg">
+              <p className="text-2xl font-bold text-yellow-400">23</p>
+              <p className="text-sm text-gray-400">Network Scans</p>
+            </div>
+            <div className="text-center p-4 bg-white/5 rounded-lg">
+              <p className="text-2xl font-bold text-purple-400">100%</p>
+              <p className="text-sm text-gray-400">Protection Rate</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

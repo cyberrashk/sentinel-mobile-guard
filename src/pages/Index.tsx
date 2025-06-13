@@ -7,8 +7,9 @@ import Vault from "@/components/Vault";
 import AIAssistant from "@/components/AIAssistant";
 import Geofence from "@/components/Geofence";
 import MobilePermissions from "@/components/MobilePermissions";
+import VPNManager from "@/components/VPNManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, Search, AlertTriangle, Lock, Bot, MapPin, Smartphone } from "lucide-react";
+import { Shield, Search, AlertTriangle, Lock, Bot, MapPin, Smartphone, Globe } from "lucide-react";
 import { Capacitor } from '@capacitor/core';
 
 const Index = () => {
@@ -19,7 +20,7 @@ const Index = () => {
       <Navigation />
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue={isMobile ? "permissions" : "dashboard"} className="space-y-6">
-          <TabsList className="grid grid-cols-4 lg:grid-cols-7 bg-white/5 backdrop-blur-sm border border-white/10">
+          <TabsList className="grid grid-cols-4 lg:grid-cols-8 bg-white/5 backdrop-blur-sm border border-white/10">
             {isMobile && (
               <TabsTrigger value="permissions" className="flex items-center gap-2">
                 <Smartphone className="h-4 w-4" />
@@ -33,6 +34,10 @@ const Index = () => {
             <TabsTrigger value="scanner" className="flex items-center gap-2">
               <Search className="h-4 w-4" />
               <span className="hidden sm:inline">Scanner</span>
+            </TabsTrigger>
+            <TabsTrigger value="vpn" className="flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              <span className="hidden sm:inline">VPN</span>
             </TabsTrigger>
             <TabsTrigger value="threats" className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
@@ -64,6 +69,10 @@ const Index = () => {
 
           <TabsContent value="scanner">
             <Scanner />
+          </TabsContent>
+
+          <TabsContent value="vpn">
+            <VPNManager />
           </TabsContent>
 
           <TabsContent value="threats">
