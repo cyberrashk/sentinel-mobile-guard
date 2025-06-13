@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Search, Shield, Eye, Zap, FileCheck, Wifi, Smartphone, AlertTriangle, CheckCircle, Bot, Scan, Lock, Trash2 } from 'lucide-react';
 import { useRealTimeScanning } from '@/hooks/useRealTimeScanning';
 import { useAIScanning } from '@/hooks/useAIScanning';
+import MobileScanner from './MobileScanner';
 
 const Scanner = () => {
   const { startRealTimeScanning, stopRealTimeScanning, isScanning: isRealTimeScanning } = useRealTimeScanning();
@@ -52,29 +52,8 @@ const Scanner = () => {
 
   return (
     <div className="space-y-6">
-      {/* AI Security Header */}
-      <Card className="glass-card overflow-hidden">
-        <div 
-          className="h-48 bg-cover bg-center relative"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop)',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500/30 to-purple-500/30 glow-blue">
-                <Bot className="h-8 w-8 text-blue-400" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-white">AI Security Scanner</h2>
-                <p className="text-blue-400 font-medium">Machine Learning Threat Detection</p>
-              </div>
-            </div>
-            <p className="text-gray-200 text-sm">Advanced AI/ML algorithms for real-time virus detection and malware analysis</p>
-          </div>
-        </div>
-      </Card>
+      {/* Mobile Device Scanner */}
+      <MobileScanner />
 
       {/* Real-time Protection Toggle */}
       <Card className="glass-card">
@@ -103,16 +82,16 @@ const Scanner = () => {
         </CardContent>
       </Card>
 
-      {/* AI Scan Section */}
+      {/* Legacy System Scan */}
       <Card className="glass-card">
         <CardHeader className="text-center">
           <div className="p-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 w-fit mx-auto mb-4">
             <Bot className="h-12 w-12 text-purple-400" />
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-            AI-Powered Deep Scan
+          <CardTitle className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            System File Scan
           </CardTitle>
-          <p className="text-gray-400">Machine learning virus detection and malware analysis</p>
+          <p className="text-gray-400">Legacy system file analysis</p>
         </CardHeader>
         <CardContent className="space-y-6">
           {isScanning && (
@@ -137,10 +116,10 @@ const Scanner = () => {
                 className="w-64 h-16 text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 glow-purple"
               >
                 <Scan className="h-6 w-6 mr-3" />
-                Start AI Security Scan
+                Start System Scan
               </Button>
               <p className="text-sm text-gray-400">
-                Deploy advanced AI algorithms to detect viruses, malware, and security threats
+                Scan system files for threats (demo purposes)
               </p>
             </div>
           )}
@@ -162,12 +141,12 @@ const Scanner = () => {
                 <h3 className={`text-xl font-bold mb-2 ${
                   threatsDetected > 0 ? 'text-red-400' : 'text-green-400'
                 }`}>
-                  AI Scan Complete
+                  System Scan Complete
                 </h3>
                 <p className="text-gray-400">
                   {threatsDetected > 0 
-                    ? `${threatsDetected} threat(s) detected and analyzed`
-                    : "Your device is secure. No threats detected."
+                    ? `${threatsDetected} threat(s) detected in system files`
+                    : "System files are secure. No threats detected."
                   }
                 </p>
               </div>
