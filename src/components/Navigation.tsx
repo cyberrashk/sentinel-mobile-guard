@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, User, Menu, X, Bell, LogOut, Activity, Zap } from 'lucide-react';
+import { Shield, User, Menu, X, Bell, LogOut, Activity, Zap, Lock, Eye } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNotifications } from '@/hooks/useNotifications';
 
@@ -20,26 +20,79 @@ const Navigation = () => {
       <div className="absolute inset-0 neural-pattern opacity-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center h-20">
-          {/* Enhanced Logo and Brand */}
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 glow-blue cyber-border">
-                <Shield className="h-10 w-10 text-blue-400" />
+          {/* Enhanced Premium Logo */}
+          <div className="flex items-center space-x-6">
+            <div className="relative group">
+              {/* Main Logo Container */}
+              <div className="relative p-4 rounded-2xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 glow-blue cyber-border group-hover:scale-105 transition-all duration-500">
+                {/* Animated Background Rings */}
+                <div className="absolute inset-0 rounded-2xl">
+                  <div className="absolute inset-2 rounded-xl border border-blue-400/30 animate-ping"></div>
+                  <div className="absolute inset-4 rounded-lg border border-purple-400/20 animate-pulse"></div>
+                </div>
+                
+                {/* Central Shield Icon */}
+                <div className="relative">
+                  <Shield className="h-12 w-12 text-blue-400 relative z-10" />
+                  {/* Inner glow effect */}
+                  <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-lg animate-pulse"></div>
+                </div>
+                
+                {/* Floating Security Elements */}
+                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-green-500/30 to-emerald-500/30 flex items-center justify-center border border-green-400/40 animate-bounce">
+                  <Lock className="h-3 w-3 text-green-400" />
+                </div>
+                
+                <div className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500/30 to-blue-500/30 flex items-center justify-center border border-cyan-400/40 float-animation">
+                  <Eye className="h-3 w-3 text-cyan-400" />
+                </div>
               </div>
-              <div className="absolute inset-0 rounded-xl border border-blue-400/30 animate-pulse"></div>
+              
+              {/* Scanning Effect */}
+              <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent animate-pulse"></div>
+                <div className="absolute bottom-0 right-0 w-1 h-full bg-gradient-to-t from-transparent via-blue-400/60 to-transparent animate-pulse delay-1000"></div>
+              </div>
             </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-3">
-                <h1 className="text-2xl font-bold cyber-gradient bg-clip-text text-transparent">
-                  AI SENTINEL
-                </h1>
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs font-mono">
-                  v3.0 QUANTUM
-                </Badge>
+            
+            {/* Enhanced Brand Text */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <h1 className="text-3xl font-bold cyber-gradient bg-clip-text text-transparent tracking-wider font-mono">
+                    AI SENTINEL
+                  </h1>
+                  {/* Text glow effect */}
+                  <div className="absolute inset-0 text-3xl font-bold text-blue-400/20 blur-sm font-mono tracking-wider">
+                    AI SENTINEL
+                  </div>
+                </div>
+                
+                {/* Premium Badges */}
+                <div className="flex flex-col gap-1">
+                  <Badge className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30 text-xs font-mono px-2 py-1 hover:glow-green transition-all duration-300">
+                    v4.0 QUANTUM
+                  </Badge>
+                  <Badge className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 border-purple-500/30 text-xs font-mono px-2 py-1 hover:glow-purple transition-all duration-300">
+                    NEURAL AI
+                  </Badge>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Activity className="h-3 w-3 text-green-400 animate-pulse" />
-                <p className="text-xs text-green-400 font-mono">DEFENSE MATRIX ACTIVE</p>
+              
+              {/* Status Indicator */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
+                  <Activity className="h-3 w-3 text-green-400 animate-pulse" />
+                  <span className="text-xs text-green-400 font-mono font-bold">NEURAL DEFENSE ACTIVE</span>
+                </div>
+                
+                {/* Live Data Stream Indicator */}
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-400 animate-ping delay-200"></div>
+                  <div className="w-2 h-2 rounded-full bg-purple-400 animate-ping delay-500"></div>
+                  <span className="text-xs text-gray-400 font-mono ml-2">LIVE DATA</span>
+                </div>
               </div>
             </div>
           </div>
