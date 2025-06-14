@@ -40,6 +40,8 @@
     --cyber-red: 0 84% 60%;
     --cyber-orange: 25 95% 53%;
     --cyber-purple: 271 91% 65%;
+    --cyber-cyan: 183 100% 50%;
+    --cyber-pink: 330 81% 60%;
   }
 
   * {
@@ -50,52 +52,251 @@
     background: hsl(var(--background));
     color: hsl(var(--foreground));
     background-image: 
-      radial-gradient(at 40% 20%, hsla(var(--cyber-blue), 0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, hsla(var(--cyber-purple), 0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(var(--cyber-green), 0.1) 0px, transparent 50%);
+      radial-gradient(circle at 25% 25%, hsla(var(--cyber-blue), 0.2) 0%, transparent 70%),
+      radial-gradient(circle at 75% 25%, hsla(var(--cyber-purple), 0.15) 0%, transparent 70%),
+      radial-gradient(circle at 25% 75%, hsla(var(--cyber-green), 0.15) 0%, transparent 70%),
+      radial-gradient(circle at 75% 75%, hsla(var(--cyber-cyan), 0.1) 0%, transparent 70%),
+      linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(16,16,32,0.95) 50%, rgba(0,0,0,0.9) 100%);
     min-height: 100vh;
     font-feature-settings: "rlig" 1, "calt" 1;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(90deg, transparent 95%, rgba(0, 255, 255, 0.03) 100%),
+      linear-gradient(0deg, transparent 95%, rgba(0, 255, 255, 0.03) 100%);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0,0,0,0.3) 100%);
+    pointer-events: none;
+    z-index: 2;
   }
 }
 
 @layer utilities {
+  .cyber-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
   .glow-blue {
-    box-shadow: 0 0 20px hsla(var(--cyber-blue), 0.3), 0 0 40px hsla(var(--cyber-blue), 0.1);
+    box-shadow: 
+      0 0 20px hsla(var(--cyber-blue), 0.4), 
+      0 0 40px hsla(var(--cyber-blue), 0.2),
+      0 0 60px hsla(var(--cyber-blue), 0.1);
   }
   
   .glow-green {
-    box-shadow: 0 0 20px hsla(var(--cyber-green), 0.3), 0 0 40px hsla(var(--cyber-green), 0.1);
+    box-shadow: 
+      0 0 20px hsla(var(--cyber-green), 0.4), 
+      0 0 40px hsla(var(--cyber-green), 0.2),
+      0 0 60px hsla(var(--cyber-green), 0.1);
   }
   
   .glow-red {
-    box-shadow: 0 0 20px hsla(var(--cyber-red), 0.3), 0 0 40px hsla(var(--cyber-red), 0.1);
+    box-shadow: 
+      0 0 20px hsla(var(--cyber-red), 0.4), 
+      0 0 40px hsla(var(--cyber-red), 0.2),
+      0 0 60px hsla(var(--cyber-red), 0.1);
+  }
+
+  .glow-purple {
+    box-shadow: 
+      0 0 20px hsla(var(--cyber-purple), 0.4), 
+      0 0 40px hsla(var(--cyber-purple), 0.2),
+      0 0 60px hsla(var(--cyber-purple), 0.1);
+  }
+
+  .glow-cyan {
+    box-shadow: 
+      0 0 20px hsla(var(--cyber-cyan), 0.4), 
+      0 0 40px hsla(var(--cyber-cyan), 0.2),
+      0 0 60px hsla(var(--cyber-cyan), 0.1);
   }
   
   .cyber-gradient {
-    background: linear-gradient(135deg, hsl(var(--cyber-blue)) 0%, hsl(var(--cyber-purple)) 100%);
+    background: linear-gradient(135deg, 
+      hsl(var(--cyber-blue)) 0%, 
+      hsl(var(--cyber-purple)) 25%,
+      hsl(var(--cyber-cyan)) 50%,
+      hsl(var(--cyber-purple)) 75%,
+      hsl(var(--cyber-blue)) 100%);
+  }
+
+  .cyber-gradient-2 {
+    background: linear-gradient(45deg, 
+      hsl(var(--cyber-green)) 0%, 
+      hsl(var(--cyber-cyan)) 50%,
+      hsl(var(--cyber-blue)) 100%);
+  }
+
+  .cyber-gradient-3 {
+    background: linear-gradient(225deg, 
+      hsl(var(--cyber-red)) 0%, 
+      hsl(var(--cyber-orange)) 50%,
+      hsl(var(--cyber-pink)) 100%);
   }
   
   .glass-card {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transition: left 0.5s;
+  }
+
+  .glass-card:hover::before {
+    left: 100%;
+  }
+
+  .neural-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(0, 255, 255, 0.15) 1px, transparent 0);
+    background-size: 20px 20px;
   }
   
   .scan-pulse {
     animation: scan-pulse 2s ease-in-out infinite;
   }
+
+  .data-stream {
+    animation: data-stream 3s linear infinite;
+  }
+
+  .matrix-rain {
+    animation: matrix-rain 5s linear infinite;
+  }
   
   .float-animation {
-    animation: float 3s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .cyber-border {
+    position: relative;
+  }
+
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+      hsl(var(--cyber-blue)), 
+      hsl(var(--cyber-purple)), 
+      hsl(var(--cyber-cyan)), 
+      hsl(var(--cyber-blue)));
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+    animation: border-glow 3s linear infinite;
+  }
+
+  .hologram {
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%);
+    background-size: 200% 200%;
+    animation: hologram-shift 4s ease-in-out infinite;
   }
   
   @keyframes scan-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
+    0%, 100% { 
+      transform: scale(1); 
+      opacity: 1; 
+      box-shadow: 0 0 20px hsla(var(--cyber-blue), 0.3);
+    }
+    50% { 
+      transform: scale(1.05); 
+      opacity: 0.8; 
+      box-shadow: 0 0 40px hsla(var(--cyber-blue), 0.6);
+    }
+  }
+
+  @keyframes data-stream {
+    0% { transform: translateX(-100%) translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(100%) translateY(100%); opacity: 0; }
+  }
+
+  @keyframes matrix-rain {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
   }
   
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(1deg); }
+    66% { transform: translateY(-5px) rotate(-1deg); }
+  }
+
+  @keyframes border-glow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes hologram-shift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+  }
+
+  .threat-radar {
+    animation: threat-radar 4s linear infinite;
+  }
+
+  @keyframes threat-radar {
+    0% { transform: rotate(0deg); opacity: 0.3; }
+    25% { opacity: 1; }
+    50% { opacity: 0.3; }
+    75% { opacity: 1; }
+    100% { transform: rotate(360deg); opacity: 0.3; }
+  }
+
+  .security-pulse {
+    animation: security-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes security-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 10px hsla(var(--cyber-green), 0.3),
+                  0 0 20px hsla(var(--cyber-green), 0.2),
+                  0 0 30px hsla(var(--cyber-green), 0.1);
+    }
+    50% { 
+      box-shadow: 0 0 20px hsla(var(--cyber-green), 0.5),
+                  0 0 30px hsla(var(--cyber-green), 0.3),
+                  0 0 40px hsla(var(--cyber-green), 0.2);
+    }
   }
 }

@@ -1,20 +1,59 @@
 
 import React from 'react';
 import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Shield, Globe, Lock } from 'lucide-react';
 
 const VPNHeroSection = () => {
   return (
-    <Card className="glass-card overflow-hidden">
+    <Card className="glass-card overflow-hidden cyber-border hologram">
       <div 
-        className="h-48 bg-cover bg-center relative"
+        className="h-56 bg-cover bg-center relative"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=400&fit=crop)',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <h2 className="text-2xl font-bold text-white mb-2">Military-Grade VPN Protection</h2>
-          <p className="text-gray-200 text-sm">Enterprise-level encryption for your mobile device</p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
+        <div className="absolute inset-0 neural-pattern opacity-20" />
+        
+        {/* Floating Status Indicators */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 font-mono">
+            QUANTUM VPN
+          </Badge>
+          <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 font-mono">
+            MILITARY GRADE
+          </Badge>
+        </div>
+
+        <div className="absolute top-4 right-4 p-3 rounded-lg bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-500/30 float-animation">
+          <div className="flex items-center gap-2">
+            <Globe className="h-4 w-4 text-purple-400" />
+            <span className="text-purple-400 text-sm font-mono">GLOBAL NETWORK</span>
+          </div>
+        </div>
+
+        <div className="absolute bottom-6 left-6 right-6">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="relative">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-600/30 flex items-center justify-center glow-green">
+                <Shield className="h-8 w-8 text-green-400" />
+              </div>
+              <div className="absolute inset-0 rounded-full border-2 border-green-400/30 animate-pulse"></div>
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-2 cyber-gradient bg-clip-text text-transparent">
+                QUANTUM VPN SHIELD
+              </h2>
+              <div className="flex items-center gap-2">
+                <Lock className="h-4 w-4 text-green-400" />
+                <p className="text-green-400 font-medium">Next-Generation Protection Active</p>
+              </div>
+            </div>
+          </div>
+          <p className="text-gray-200 text-sm">
+            Military-grade quantum encryption • Zero-log policy • Global server network • AI threat detection
+          </p>
         </div>
       </div>
     </Card>
