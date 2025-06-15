@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,10 +7,10 @@ import { Shield, Eye, Lock, Zap, Users, Scan, Globe, Smartphone, Activity, Serve
 const Dashboard = () => {
   const securityMetrics = [
     { label: 'Threat Shield', status: 'secure', icon: Shield, color: 'text-green-400', count: '100%', bgGlow: 'security-pulse' },
-    { label: 'Network Guard', status: 'secure', icon: Wifi, color: 'text-green-400', count: 'ACTIVE', bgGlow: 'glow-green' },
+    { label: 'Network Guard', status: 'secure', icon: Wifi, color: 'text-emerald-400', count: 'ACTIVE', bgGlow: 'glow-emerald' },
     { label: 'AI Detection', status: 'warning', icon: Eye, color: 'text-yellow-400', count: '2 ALERTS', bgGlow: 'glow-yellow' },
-    { label: 'Firewall', status: 'secure', icon: Server, color: 'text-cyan-400', count: 'ENABLED', bgGlow: 'glow-cyan' },
-    { label: 'Secure Vault', status: 'secure', icon: Lock, color: 'text-purple-400', count: 'LOCKED', bgGlow: 'glow-purple' }
+    { label: 'Firewall', status: 'secure', icon: Server, color: 'text-teal-400', count: 'ENABLED', bgGlow: 'glow-teal' },
+    { label: 'Secure Vault', status: 'secure', icon: Lock, color: 'text-lime-400', count: 'LOCKED', bgGlow: 'glow-lime' }
   ];
 
   const realTimeData = [
@@ -35,30 +34,30 @@ const Dashboard = () => {
           <div className="absolute inset-0 cyber-grid opacity-30" />
           
           {/* Floating Data Elements */}
-          <div className="absolute top-4 right-4 p-3 rounded-lg bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-500/30 float-animation">
+          <div className="absolute top-4 right-4 p-3 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm border border-green-500/30 float-animation">
             <div className="flex items-center gap-2">
-              <Activity className="h-4 w-4 text-cyan-400" />
-              <span className="text-cyan-400 text-sm font-mono">LIVE</span>
+              <Activity className="h-4 w-4 text-green-400" />
+              <span className="text-green-400 text-sm font-mono">LIVE</span>
             </div>
           </div>
 
           <div className="absolute bottom-8 left-8 right-8">
             <div className="flex items-center gap-6 mb-6">
               <div className="relative">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-600/30 flex items-center justify-center glow-green security-pulse">
-                  <Shield className="h-10 w-10 text-green-400" />
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500/30 to-lime-600/30 flex items-center justify-center glow-emerald security-pulse">
+                  <Shield className="h-10 w-10 text-emerald-400" />
                 </div>
-                <div className="absolute inset-0 rounded-full border-2 border-green-400/50 animate-ping"></div>
+                <div className="absolute inset-0 rounded-full border-2 border-emerald-400/50 animate-ping"></div>
               </div>
               <div>
                 <h2 className="text-4xl font-bold text-white mb-2 cyber-gradient bg-clip-text text-transparent">
                   AI SENTINEL
                 </h2>
                 <div className="flex items-center gap-3">
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 px-3 py-1">
+                  <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 px-3 py-1">
                     DEFENSE MODE: ACTIVE
                   </Badge>
-                  <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 px-3 py-1">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 px-3 py-1">
                     AI LEARNING: ON
                   </Badge>
                 </div>
@@ -77,14 +76,14 @@ const Dashboard = () => {
       {/* Real-time Statistics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {realTimeData.map((item, index) => (
-          <Card key={index} className="glass-card hover:glow-blue transition-all duration-300 group">
+          <Card key={index} className="glass-card hover:glow-green transition-all duration-300 group">
             <CardContent className="p-6 text-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 group-hover:from-green-500/10 group-hover:to-emerald-500/10 transition-all duration-300" />
               <div className="relative">
                 <h3 className="text-sm text-gray-400 mb-2 font-mono">{item.label}</h3>
                 <p className="text-2xl font-bold text-white mb-2 font-mono">{item.value}</p>
                 <div className={`text-xs flex items-center justify-center gap-1 ${
-                  item.trend === 'up' ? 'text-green-400' : 
+                  item.trend === 'up' ? 'text-emerald-400' : 
                   item.trend === 'down' ? 'text-red-400' : 'text-gray-400'
                 }`}>
                   <span>{item.change}</span>
@@ -100,18 +99,18 @@ const Dashboard = () => {
 
       {/* Enhanced Action Center */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="glass-card hover:glow-blue transition-all duration-300 group cyber-border">
+        <Card className="glass-card hover:glow-green transition-all duration-300 group cyber-border">
           <CardContent className="p-8 text-center relative overflow-hidden">
             <div className="absolute inset-0 data-stream opacity-20" />
             <div className="relative">
-              <div className="p-6 rounded-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Scan className="h-12 w-12 text-blue-400" />
+              <div className="p-6 rounded-full bg-gradient-to-r from-green-600/20 to-emerald-600/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Scan className="h-12 w-12 text-green-400" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Deep System Scan</h3>
               <p className="text-gray-400 mb-6">Advanced AI-powered threat detection with neural network analysis</p>
               <Button
                 size="lg"
-                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 glow-blue group-hover:glow-purple transition-all duration-300"
+                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 glow-green group-hover:glow-emerald transition-all duration-300"
               >
                 <Scan className="h-6 w-6 mr-3" />
                 INITIATE SCAN
@@ -120,18 +119,18 @@ const Dashboard = () => {
           </CardContent>
         </Card>
         
-        <Card className="glass-card hover:glow-green transition-all duration-300 group cyber-border">
+        <Card className="glass-card hover:glow-lime transition-all duration-300 group cyber-border">
           <CardContent className="p-8 text-center relative overflow-hidden">
             <div className="absolute inset-0 neural-pattern opacity-10" />
             <div className="relative">
-              <div className="p-6 rounded-full bg-gradient-to-r from-green-600/20 to-emerald-600/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Globe className="h-12 w-12 text-green-400" />
+              <div className="p-6 rounded-full bg-gradient-to-r from-lime-600/20 to-teal-600/20 w-fit mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Globe className="h-12 w-12 text-lime-400" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Secure VPN Shield</h3>
               <p className="text-gray-400 mb-6">Military-grade encryption with global server network</p>
               <Button
                 size="lg"
-                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 glow-green group-hover:glow-cyan transition-all duration-300"
+                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-lime-600 to-teal-600 hover:from-lime-700 hover:to-teal-700 glow-lime group-hover:glow-teal transition-all duration-300"
               >
                 <Globe className="h-6 w-6 mr-3" />
                 ACTIVATE VPN
@@ -160,7 +159,7 @@ const Dashboard = () => {
                   <div className="space-y-2">
                     <Badge className={`${
                       metric.status === 'secure' 
-                        ? 'bg-green-500/20 text-green-400 border-green-500/30' 
+                        ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
                         : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
                     } px-3 py-1 font-mono`}>
                       {metric.status.toUpperCase()}
@@ -178,7 +177,7 @@ const Dashboard = () => {
 
       {/* Advanced Feature Showcase */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="glass-card hover:glow-cyan transition-all duration-300 group overflow-hidden cyber-border">
+        <Card className="glass-card hover:glow-green transition-all duration-300 group overflow-hidden cyber-border">
           <div 
             className="h-40 bg-cover bg-center relative"
             style={{
@@ -188,18 +187,18 @@ const Dashboard = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
             <div className="absolute inset-0 neural-pattern opacity-20" />
             <div className="absolute bottom-4 left-6">
-              <div className="p-3 rounded-lg bg-gradient-to-r from-cyan-500/30 to-blue-500/30 backdrop-blur-sm">
-                <Eye className="h-8 w-8 text-cyan-400" />
+              <div className="p-3 rounded-lg bg-gradient-to-r from-green-500/30 to-emerald-500/30 backdrop-blur-sm">
+                <Eye className="h-8 w-8 text-green-400" />
               </div>
             </div>
             <div className="absolute top-4 right-4">
-              <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 font-mono">
+              <Badge className="bg-green-500/20 text-green-400 border-green-500/30 font-mono">
                 AI ACTIVE
               </Badge>
             </div>
           </div>
           <CardContent className="p-6 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 group-hover:from-cyan-500/10 group-hover:to-blue-500/10 transition-all duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-emerald-500/5 group-hover:from-green-500/10 group-hover:to-emerald-500/10 transition-all duration-300" />
             <div className="relative">
               <h3 className="text-xl font-bold text-white mb-3">Neural Threat Analysis</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -207,7 +206,7 @@ const Dashboard = () => {
               </p>
               <div className="flex items-center gap-4 text-xs text-gray-500">
                 <span className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
                   Real-time Analysis
                 </span>
                 <span>Neural Networks: 12 Active</span>
@@ -216,7 +215,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
         
-        <Card className="glass-card hover:glow-purple transition-all duration-300 group overflow-hidden cyber-border">
+        <Card className="glass-card hover:glow-lime transition-all duration-300 group overflow-hidden cyber-border">
           <div 
             className="h-40 bg-cover bg-center relative"
             style={{
@@ -226,18 +225,18 @@ const Dashboard = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
             <div className="absolute inset-0 cyber-grid opacity-20" />
             <div className="absolute bottom-4 left-6">
-              <div className="p-3 rounded-lg bg-gradient-to-r from-purple-500/30 to-pink-500/30 backdrop-blur-sm">
-                <Lock className="h-8 w-8 text-purple-400" />
+              <div className="p-3 rounded-lg bg-gradient-to-r from-lime-500/30 to-teal-500/30 backdrop-blur-sm">
+                <Lock className="h-8 w-8 text-lime-400" />
               </div>
             </div>
             <div className="absolute top-4 right-4">
-              <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 font-mono">
+              <Badge className="bg-lime-500/20 text-lime-400 border-lime-500/30 font-mono">
                 QUANTUM READY
               </Badge>
             </div>
           </div>
           <CardContent className="p-6 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-lime-500/5 to-teal-500/5 group-hover:from-lime-500/10 group-hover:to-teal-500/10 transition-all duration-300" />
             <div className="relative">
               <h3 className="text-xl font-bold text-white mb-3">Quantum Vault Security</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -245,7 +244,7 @@ const Dashboard = () => {
               </p>
               <div className="flex items-center gap-4 text-xs text-gray-500">
                 <span className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></div>
+                  <div className="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></div>
                   AES-256 + Quantum
                 </span>
                 <span>Vault Integrity: 100%</span>
@@ -259,8 +258,8 @@ const Dashboard = () => {
       <Card className="glass-card cyber-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
-            <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20">
-              <Smartphone className="h-6 w-6 text-blue-400" />
+            <div className="p-2 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20">
+              <Smartphone className="h-6 w-6 text-green-400" />
             </div>
             <span className="cyber-gradient-2 bg-clip-text text-transparent">
               Advanced Security Matrix
@@ -269,18 +268,18 @@ const Dashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20 hologram">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500/30 to-emerald-500/30 flex items-center justify-center mx-auto mb-3 glow-green">
-                <span className="text-green-400 font-bold text-lg">98</span>
+            <div className="text-center p-6 bg-gradient-to-br from-emerald-500/10 to-lime-500/10 rounded-lg border border-emerald-500/20 hologram">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500/30 to-lime-500/30 flex items-center justify-center mx-auto mb-3 glow-emerald">
+                <span className="text-emerald-400 font-bold text-lg">98</span>
               </div>
-              <p className="text-xl font-bold text-green-400 font-mono">SECURE</p>
+              <p className="text-xl font-bold text-emerald-400 font-mono">SECURE</p>
               <p className="text-sm text-gray-400">Apps Verified</p>
             </div>
-            <div className="text-center p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg border border-blue-500/20 hologram">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500/30 to-cyan-500/30 flex items-center justify-center mx-auto mb-3 glow-cyan">
-                <span className="text-blue-400 font-bold text-lg">3.2K</span>
+            <div className="text-center p-6 bg-gradient-to-br from-green-500/10 to-teal-500/10 rounded-lg border border-green-500/20 hologram">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500/30 to-teal-500/30 flex items-center justify-center mx-auto mb-3 glow-teal">
+                <span className="text-green-400 font-bold text-lg">3.2K</span>
               </div>
-              <p className="text-xl font-bold text-blue-400 font-mono">PROTECTED</p>
+              <p className="text-xl font-bold text-green-400 font-mono">PROTECTED</p>
               <p className="text-sm text-gray-400">Files Encrypted</p>
             </div>
             <div className="text-center p-6 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-lg border border-yellow-500/20 hologram">
@@ -290,11 +289,11 @@ const Dashboard = () => {
               <p className="text-xl font-bold text-yellow-400 font-mono">MONITORED</p>
               <p className="text-sm text-gray-400">Network Points</p>
             </div>
-            <div className="text-center p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg border border-purple-500/20 hologram">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 flex items-center justify-center mx-auto mb-3 glow-purple">
-                <span className="text-purple-400 font-bold text-lg">∞</span>
+            <div className="text-center p-6 bg-gradient-to-br from-lime-500/10 to-emerald-500/10 rounded-lg border border-lime-500/20 hologram">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-lime-500/30 to-emerald-500/30 flex items-center justify-center mx-auto mb-3 glow-lime">
+                <span className="text-lime-400 font-bold text-lg">∞</span>
               </div>
-              <p className="text-xl font-bold text-purple-400 font-mono">LEARNING</p>
+              <p className="text-xl font-bold text-lime-400 font-mono">LEARNING</p>
               <p className="text-sm text-gray-400">AI Evolution</p>
             </div>
           </div>

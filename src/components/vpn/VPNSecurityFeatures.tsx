@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -10,35 +9,35 @@ const VPNSecurityFeatures = () => {
       icon: Lock,
       title: 'AES-256',
       subtitle: 'Quantum Encryption',
-      color: 'blue',
+      color: 'green',
       status: 'ACTIVE'
     },
     {
       icon: Shield,
       title: 'Kill Switch',
       subtitle: 'Auto Protection',
-      color: 'green',
+      color: 'emerald',
       status: 'ENABLED'
     },
     {
       icon: Globe,
       title: 'DNS Shield',
       subtitle: 'Leak Protection',
-      color: 'purple',
+      color: 'lime',
       status: 'SECURED'
     },
     {
       icon: Wifi,
       title: 'Zero Logs',
       subtitle: 'Privacy Policy',
-      color: 'yellow',
+      color: 'teal',
       status: 'VERIFIED'
     },
     {
       icon: Zap,
       title: 'Speed Boost',
       subtitle: 'AI Optimization',
-      color: 'cyan',
+      color: 'mint',
       status: 'TURBO'
     },
     {
@@ -52,7 +51,7 @@ const VPNSecurityFeatures = () => {
       icon: Server,
       title: 'Multi-Hop',
       subtitle: 'Double VPN',
-      color: 'pink',
+      color: 'forest',
       status: 'ADVANCED'
     },
     {
@@ -66,28 +65,26 @@ const VPNSecurityFeatures = () => {
 
   const getColorClasses = (color: string) => {
     const colors = {
-      blue: 'text-blue-400 glow-blue',
       green: 'text-green-400 glow-green',
-      purple: 'text-purple-400 glow-purple',
-      yellow: 'text-yellow-400',
-      cyan: 'text-cyan-400 glow-cyan',
+      emerald: 'text-emerald-400 glow-emerald',
+      lime: 'text-lime-400 glow-lime',
+      teal: 'text-teal-400 glow-teal',
+      mint: 'text-green-300 glow-mint',
       red: 'text-red-400 glow-red',
-      pink: 'text-pink-400',
-      emerald: 'text-emerald-400'
+      forest: 'text-green-600'
     };
     return colors[color as keyof typeof colors] || 'text-gray-400';
   };
 
   const getBadgeClasses = (color: string) => {
     const colors = {
-      blue: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
       green: 'bg-green-500/20 text-green-400 border-green-500/30',
-      purple: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
-      yellow: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-      cyan: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+      emerald: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+      lime: 'bg-lime-500/20 text-lime-400 border-lime-500/30',
+      teal: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
+      mint: 'bg-green-300/20 text-green-300 border-green-300/30',
       red: 'bg-red-500/20 text-red-400 border-red-500/30',
-      pink: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
-      emerald: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+      forest: 'bg-green-600/20 text-green-600 border-green-600/30'
     };
     return colors[color as keyof typeof colors] || 'bg-gray-500/20 text-gray-400 border-gray-500/30';
   };
@@ -97,8 +94,8 @@ const VPNSecurityFeatures = () => {
       <CardContent className="p-8">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 glow-blue">
-              <Lock className="h-8 w-8 text-blue-400" />
+            <div className="p-3 rounded-xl bg-gradient-to-r from-green-500/20 to-emerald-500/20 glow-green">
+              <Lock className="h-8 w-8 text-green-400" />
             </div>
             <h3 className="text-2xl font-bold cyber-gradient-2 bg-clip-text text-transparent">
               ADVANCED SECURITY MATRIX
@@ -135,16 +132,16 @@ const VPNSecurityFeatures = () => {
 
         {/* Additional Security Info */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="text-center p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20">
-            <div className="text-2xl font-bold text-green-400 font-mono mb-1">256-bit</div>
+          <div className="text-center p-4 bg-gradient-to-r from-emerald-500/10 to-lime-500/10 rounded-lg border border-emerald-500/20">
+            <div className="text-2xl font-bold text-emerald-400 font-mono mb-1">256-bit</div>
             <div className="text-xs text-gray-400">Encryption Strength</div>
           </div>
-          <div className="text-center p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-lg border border-blue-500/20">
-            <div className="text-2xl font-bold text-blue-400 font-mono mb-1">Zero</div>
+          <div className="text-center p-4 bg-gradient-to-r from-green-500/10 to-teal-500/10 rounded-lg border border-green-500/20">
+            <div className="text-2xl font-bold text-green-400 font-mono mb-1">Zero</div>
             <div className="text-xs text-gray-400">Data Logs Kept</div>
           </div>
-          <div className="text-center p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg border border-purple-500/20">
-            <div className="text-2xl font-bold text-purple-400 font-mono mb-1">99.9%</div>
+          <div className="text-center p-4 bg-gradient-to-r from-lime-500/10 to-emerald-500/10 rounded-lg border border-lime-500/20">
+            <div className="text-2xl font-bold text-lime-400 font-mono mb-1">99.9%</div>
             <div className="text-xs text-gray-400">Uptime Guarantee</div>
           </div>
         </div>

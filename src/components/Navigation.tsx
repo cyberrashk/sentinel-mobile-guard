@@ -16,7 +16,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="glass-card backdrop-blur-xl border-b border-white/20 sticky top-0 z-50 cyber-border">
+    <nav className="glass-card backdrop-blur-xl border-b border-green-500/20 sticky top-0 z-50 cyber-border">
       <div className="absolute inset-0 neural-pattern opacity-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center h-20">
@@ -24,34 +24,34 @@ const Navigation = () => {
           <div className="flex items-center space-x-6">
             <div className="relative group">
               {/* Main Logo Container */}
-              <div className="relative p-4 rounded-2xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 glow-blue cyber-border group-hover:scale-105 transition-all duration-500">
+              <div className="relative p-4 rounded-2xl bg-gradient-to-br from-green-500/20 via-emerald-500/20 to-lime-500/20 glow-green cyber-border group-hover:scale-105 transition-all duration-500">
                 {/* Animated Background Rings */}
                 <div className="absolute inset-0 rounded-2xl">
-                  <div className="absolute inset-2 rounded-xl border border-blue-400/30 animate-ping"></div>
-                  <div className="absolute inset-4 rounded-lg border border-purple-400/20 animate-pulse"></div>
+                  <div className="absolute inset-2 rounded-xl border border-green-400/30 animate-ping"></div>
+                  <div className="absolute inset-4 rounded-lg border border-emerald-400/20 animate-pulse"></div>
                 </div>
                 
                 {/* Central Shield Icon */}
                 <div className="relative">
-                  <Shield className="h-12 w-12 text-blue-400 relative z-10" />
+                  <Shield className="h-12 w-12 text-green-400 relative z-10" />
                   {/* Inner glow effect */}
-                  <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-lg animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full bg-green-400/20 blur-lg animate-pulse"></div>
                 </div>
                 
                 {/* Floating Security Elements */}
-                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-green-500/30 to-emerald-500/30 flex items-center justify-center border border-green-400/40 animate-bounce">
-                  <Lock className="h-3 w-3 text-green-400" />
+                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500/30 to-lime-500/30 flex items-center justify-center border border-emerald-400/40 animate-bounce">
+                  <Lock className="h-3 w-3 text-emerald-400" />
                 </div>
                 
-                <div className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500/30 to-blue-500/30 flex items-center justify-center border border-cyan-400/40 float-animation">
-                  <Eye className="h-3 w-3 text-cyan-400" />
+                <div className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-gradient-to-r from-teal-500/30 to-green-500/30 flex items-center justify-center border border-teal-400/40 float-animation">
+                  <Eye className="h-3 w-3 text-teal-400" />
                 </div>
               </div>
               
               {/* Scanning Effect */}
               <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent animate-pulse"></div>
-                <div className="absolute bottom-0 right-0 w-1 h-full bg-gradient-to-t from-transparent via-blue-400/60 to-transparent animate-pulse delay-1000"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400/60 to-transparent animate-pulse"></div>
+                <div className="absolute bottom-0 right-0 w-1 h-full bg-gradient-to-t from-transparent via-emerald-400/60 to-transparent animate-pulse delay-1000"></div>
               </div>
             </div>
             
@@ -63,17 +63,17 @@ const Navigation = () => {
                     AI SENTINEL
                   </h1>
                   {/* Text glow effect */}
-                  <div className="absolute inset-0 text-3xl font-bold text-blue-400/20 blur-sm font-mono tracking-wider">
+                  <div className="absolute inset-0 text-3xl font-bold text-green-400/20 blur-sm font-mono tracking-wider">
                     AI SENTINEL
                   </div>
                 </div>
                 
                 {/* Premium Badges */}
                 <div className="flex flex-col gap-1">
-                  <Badge className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30 text-xs font-mono px-2 py-1 hover:glow-green transition-all duration-300">
+                  <Badge className="bg-gradient-to-r from-emerald-500/20 to-lime-500/20 text-emerald-400 border-emerald-500/30 text-xs font-mono px-2 py-1 hover:glow-emerald transition-all duration-300">
                     v4.0 QUANTUM
                   </Badge>
-                  <Badge className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 border-purple-500/30 text-xs font-mono px-2 py-1 hover:glow-purple transition-all duration-300">
+                  <Badge className="bg-gradient-to-r from-green-500/20 to-teal-500/20 text-green-400 border-green-500/30 text-xs font-mono px-2 py-1 hover:glow-green transition-all duration-300">
                     NEURAL AI
                   </Badge>
                 </div>
@@ -81,16 +81,16 @@ const Navigation = () => {
               
               {/* Status Indicator */}
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
-                  <Activity className="h-3 w-3 text-green-400 animate-pulse" />
-                  <span className="text-xs text-green-400 font-mono font-bold">NEURAL DEFENSE ACTIVE</span>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500/10 to-lime-500/10 border border-emerald-500/20">
+                  <Activity className="h-3 w-3 text-emerald-400 animate-pulse" />
+                  <span className="text-xs text-emerald-400 font-mono font-bold">NEURAL DEFENSE ACTIVE</span>
                 </div>
                 
                 {/* Live Data Stream Indicator */}
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></div>
-                  <div className="w-2 h-2 rounded-full bg-blue-400 animate-ping delay-200"></div>
-                  <div className="w-2 h-2 rounded-full bg-purple-400 animate-ping delay-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-ping"></div>
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping delay-200"></div>
+                  <div className="w-2 h-2 rounded-full bg-lime-400 animate-ping delay-500"></div>
                   <span className="text-xs text-gray-400 font-mono ml-2">LIVE DATA</span>
                 </div>
               </div>
@@ -100,9 +100,9 @@ const Navigation = () => {
           {/* Enhanced Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {/* System Status Indicator */}
-            <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
-              <Zap className="h-4 w-4 text-green-400 animate-pulse" />
-              <span className="text-sm font-mono text-green-400">OPTIMAL</span>
+            <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500/10 to-lime-500/10 border border-emerald-500/20">
+              <Zap className="h-4 w-4 text-emerald-400 animate-pulse" />
+              <span className="text-sm font-mono text-emerald-400">OPTIMAL</span>
             </div>
 
             {/* Enhanced Notifications */}
@@ -119,9 +119,9 @@ const Navigation = () => {
             </Button>
 
             {/* User Profile */}
-            <div className="flex items-center space-x-3 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 flex items-center justify-center">
-                <User className="h-4 w-4 text-purple-400" />
+            <div className="flex items-center space-x-3 px-4 py-2 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500/30 to-emerald-500/30 flex items-center justify-center">
+                <User className="h-4 w-4 text-green-400" />
               </div>
               <span className="text-sm text-gray-300 font-mono">{user?.email}</span>
             </div>
@@ -153,13 +153,13 @@ const Navigation = () => {
         {/* Enhanced Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-6 space-y-4 border-t border-white/20 bg-gradient-to-b from-black/50 to-transparent backdrop-blur-sm">
-            <div className="p-4 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
+            <div className="p-4 rounded-lg bg-gradient-to-r from-emerald-500/10 to-lime-500/10 border border-emerald-500/20">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-green-400 animate-pulse" />
-                  <span className="text-sm font-mono text-green-400">SYSTEM STATUS</span>
+                  <Zap className="h-4 w-4 text-emerald-400 animate-pulse" />
+                  <span className="text-sm font-mono text-emerald-400">SYSTEM STATUS</span>
                 </div>
-                <span className="text-sm font-mono text-green-400">OPTIMAL</span>
+                <span className="text-sm font-mono text-emerald-400">OPTIMAL</span>
               </div>
             </div>
 
@@ -173,9 +173,9 @@ const Navigation = () => {
               )}
             </Button>
 
-            <div className="flex items-center justify-start px-4 py-3 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-lg border border-purple-500/20">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 flex items-center justify-center mr-3">
-                <User className="h-4 w-4 text-purple-400" />
+            <div className="flex items-center justify-start px-4 py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500/30 to-emerald-500/30 flex items-center justify-center mr-3">
+                <User className="h-4 w-4 text-green-400" />
               </div>
               <span className="text-gray-300 font-mono">{user?.email}</span>
             </div>
